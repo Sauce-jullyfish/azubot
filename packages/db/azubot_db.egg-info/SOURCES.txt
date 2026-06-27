@@ -1,0 +1,6 @@
+pyproject.toml
+azubot_db.egg-info/PKG-INFO
+azubot_db.egg-info/SOURCES.txt
+azubot_db.egg-info/dependency_links.txt
+azubot_db.egg-info/requires.txt
+azubot_db.egg-info/top_level.txt

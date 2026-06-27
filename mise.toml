@@ -1,0 +1,43 @@
+[tools]
+node = "24.17.0"
+viteplus = "latest"
+python = "3.14.6"
+pnpm = "latest"
+uv = "latest"
+
+[env]
+FORCE_COLOR = "1"
+PYTHONUNBUFFERED = "1"
+_.file = { path = ".env" }
+
+[tasks.sync]
+description = "Sync pnpm and uv workspace dependencies"
+run = "vp install && uv sync --all-packages"
+
+[tasks.dev]
+description = "Run azubot dev services with aggregated logs"
+run = "node scripts/dev.mjs"
+
+[tasks.dev-web]
+description = "Run frontend only"
+run = "vp run web#dev"
+
+[tasks.dev-api]
+description = "Run FastAPI only"
+run = "uv --directory apps/api run fastapi dev main.py --host 127.0.0.1 --port 8000"
+
+[tasks.dev-bot]
+description = "Run bot only"
+run = "uv --directory apps/bot run python main.py"
+
+[tasks.dev-infra]
+description = "Run Docker Compose infra only"
+run = "docker compose -f docker/compose.yaml up"
+
+[tasks.lint]
+description = "Run lint"
+run = "uv run ruff check apps/api apps/bot packages/db && vp lint"
+
+[tasks.fmt]
+description = "Format Python code"
+run = "uv run ruff format apps/api apps/bot packages/db && vp fmt"

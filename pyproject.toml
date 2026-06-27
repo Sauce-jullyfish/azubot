@@ -1,0 +1,17 @@
+[project]
+name = "azubot-workspace"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+azubot-db = { workspace = true }
+
+[tool.uv.workspace]
+members = ["apps/api", "apps/bot", "packages/db"]
+
+[dependency-groups]
+dev = ["ruff", "pytest", "pytest-asyncio", "ty"]

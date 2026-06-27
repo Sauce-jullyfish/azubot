@@ -1,0 +1,45 @@
+name: azubot
+
+services:
+  pgsql:
+    image: postgres:18-alpine3.23
+    container_name: azubot-pgsql
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-azubot}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_DB: ${POSTGRES_DB:-azubot}
+      TZ: ${TZ:-Asia/Taipei}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgsql_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - azubot_infra
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: azubot-cloudflared
+    restart: unless-stopped
+    command:
+      - tunnel
+      - --no-autoupdate
+      - run
+      - --token
+      - ${CLOUDFLARED_TUNNEL_TOKEN:?CLOUDFLARED_TUNNEL_TOKEN is required}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - azubot_infra
+
+volumes:
+  pgsql_data:
+
+networks:
+  azubot_infra:
+    name: azubot-infra

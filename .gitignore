@@ -14,6 +14,7 @@ dist-ssr
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # turbo
 .turbo
@@ -31,3 +32,9 @@ dist-ssr
 
 # typescript
 *.tsbuildinfo
+
+.ruff*
+.venv
+.vite-hooks
+.vscode
+__pycache__

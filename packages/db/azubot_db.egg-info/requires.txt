@@ -1,0 +1,4 @@
+sqlmodel
+psycopg[binary]
+pydantic-settings
+alembic

@@ -1,0 +1,8 @@
+[project]
+name = "azubot-api"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = ["azubot-db", "fastapi[standard]", "httpx", "authlib", "pydantic-settings"]
+
+[tool.uv]
+package = false

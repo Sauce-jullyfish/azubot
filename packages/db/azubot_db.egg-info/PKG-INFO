@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: azubot-db
+Version: 0.1.0
+Requires-Python: >=3.14
+Requires-Dist: sqlmodel
+Requires-Dist: psycopg[binary]
+Requires-Dist: pydantic-settings
+Requires-Dist: alembic
